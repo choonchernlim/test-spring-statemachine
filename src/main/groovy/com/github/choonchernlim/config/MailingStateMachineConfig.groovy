@@ -1,9 +1,7 @@
 package com.github.choonchernlim.config
 
 import com.github.choonchernlim.statemachine.core.StateMachineListener
-import com.github.choonchernlim.statemachine.mailing.MailingEvent
-import com.github.choonchernlim.statemachine.mailing.MailingState
-import com.github.choonchernlim.statemachine.mailing.MailingStateMachineConstant
+import com.github.choonchernlim.statemachine.mailing.MailingMetadata
 import groovy.util.logging.Slf4j
 import org.springframework.context.annotation.Configuration
 import org.springframework.statemachine.config.EnableStateMachine
@@ -15,31 +13,34 @@ import org.springframework.statemachine.config.builders.StateMachineTransitionCo
 @Slf4j
 @Configuration
 @EnableStateMachine
-class MailingStateMachineConfig extends StateMachineConfigurerAdapter<String, String> {
+@SuppressWarnings(['GroovyUnusedDeclaration', 'GrMethodMayBeStatic'])
+class MailingMachineConfig extends StateMachineConfigurerAdapter<MailingMetadata.State, MailingMetadata.Event> {
 
     @Override
-    void configure(final StateMachineConfigurationConfigurer<String, String> config) throws Exception {
+    void configure(
+            final StateMachineConfigurationConfigurer<MailingMetadata.State, MailingMetadata.Event> config) throws Exception {
         config.
                 withConfiguration().
                 autoStartup(true).
-                machineId(MailingStateMachineConstant.MACHINE_ID).
+                machineId(MailingMetadata.MACHINE_ID).
                 listener(new StateMachineListener())
     }
 
     @Override
-    void configure(StateMachineStateConfigurer<String, String> states) throws Exception {
+    void configure(StateMachineStateConfigurer<MailingMetadata.State, MailingMetadata.Event> states) throws Exception {
         states.
                 withStates().
-                initial(MailingState.WAITING).
-                states(MailingState.allStates)
+                initial(MailingMetadata.State.WAITING).
+                states(EnumSet.allOf(MailingMetadata.State))
     }
 
     @Override
-    void configure(StateMachineTransitionConfigurer<String, String> transitions) throws Exception {
+    void configure(
+            StateMachineTransitionConfigurer<MailingMetadata.State, MailingMetadata.Event> transitions) throws Exception {
         transitions.
                 withExternal().
-                source(MailingState.WAITING).
-                target(MailingState.SENT_SUCCESSFULLY).
-                event(MailingEvent.SendMail.EVENT_NAME)
+                source(MailingMetadata.State.WAITING).
+                target(MailingMetadata.State.SENT_SUCCESSFULLY).
+                event(MailingMetadata.Event.SEND_MAIL)
     }
 }

@@ -1,6 +1,6 @@
 package com.github.choonchernlim
 
-import com.github.choonchernlim.statemachine.mailing.MailingEvent
+import com.github.choonchernlim.statemachine.mailing.MailingMetadata
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
@@ -13,10 +13,10 @@ import org.springframework.statemachine.StateMachine
 @SpringBootApplication
 class Application implements CommandLineRunner {
 
-    final StateMachine<String, String> stateMachine
+    final StateMachine<MailingMetadata.State, MailingMetadata.Event> stateMachine
 
     @Autowired
-    Application(final StateMachine<String, String> stateMachine) {
+    Application(final StateMachine<MailingMetadata.State, MailingMetadata.Event> stateMachine) {
         this.stateMachine = stateMachine
     }
 
@@ -24,14 +24,14 @@ class Application implements CommandLineRunner {
     void run(final String... strings) {
         stateMachine.sendEvent(
                 MessageBuilder.
-                        withPayload(MailingEvent.SendMail.EVENT_NAME).
-                        setHeader(MailingEvent.SendMail.MAIL_ID, 1).
+                        withPayload(MailingMetadata.Event.SEND_MAIL).
+                        setHeader(MailingMetadata.SendMailEvent.MAIL_ID, 1).
                         build())
 
         stateMachine.sendEvent(
                 MessageBuilder.
-                        withPayload(MailingEvent.SendMail.EVENT_NAME).
-                        setHeader(MailingEvent.SendMail.MAIL_ID, 1).
+                        withPayload(MailingMetadata.Event.SEND_MAIL).
+                        setHeader(MailingMetadata.SendMailEvent.MAIL_ID, 1).
                         build())
 
     }
