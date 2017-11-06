@@ -3,7 +3,7 @@
 logging.level:
   root: WARN
   com.github.choonchernlim: DEBUG
-  org.springframework.statemachine: INFO
+  org.springframework.statemachine: WARN
 
 spring:
   # To ensure logging messages are consistently shown in color regardless of console type (IntelliJ, Terminal, etc).
