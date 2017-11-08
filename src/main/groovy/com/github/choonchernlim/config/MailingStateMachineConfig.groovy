@@ -1,6 +1,7 @@
 package com.github.choonchernlim.config
 
 import com.github.choonchernlim.statemachine.core.StateMachineListener
+import com.github.choonchernlim.statemachine.core.StateMachineMonitor
 import com.github.choonchernlim.statemachine.mailing.MailingMetadata
 import groovy.util.logging.Slf4j
 import org.springframework.context.annotation.Configuration
@@ -14,7 +15,7 @@ import org.springframework.statemachine.config.builders.StateMachineTransitionCo
 @Configuration
 @EnableStateMachine
 @SuppressWarnings(['GroovyUnusedDeclaration', 'GrMethodMayBeStatic'])
-class MailingMachineConfig extends StateMachineConfigurerAdapter<MailingMetadata.State, MailingMetadata.Event> {
+class MailingStateMachineConfig extends StateMachineConfigurerAdapter<MailingMetadata.State, MailingMetadata.Event> {
 
     @Override
     void configure(
@@ -23,7 +24,10 @@ class MailingMachineConfig extends StateMachineConfigurerAdapter<MailingMetadata
                 withConfiguration().
                 autoStartup(true).
                 machineId(MailingMetadata.MACHINE_ID).
-                listener(new StateMachineListener())
+                listener(new StateMachineListener()).
+                and().
+                withMonitoring().
+                monitor(new StateMachineMonitor())
     }
 
     @Override

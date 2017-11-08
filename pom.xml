@@ -13,6 +13,10 @@
     <artifactId>test-spring-statemachine</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <spring-statemachine.version>1.2.6.RELEASE</spring-statemachine.version>
+    </properties>
+
     <dependencies>
         <!-- Scope: Compile -->
         <dependency>
@@ -27,12 +31,11 @@
         <dependency>
             <groupId>org.springframework.statemachine</groupId>
             <artifactId>spring-statemachine-core</artifactId>
-            <version>1.2.6.RELEASE</version>
+            <version>${spring-statemachine.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-            <version>4.2.2.RELEASE</version>
         </dependency>
 
         <!-- Scope: Test -->
@@ -46,12 +49,12 @@
             <artifactId>spock-spring</artifactId>
             <scope>test</scope>
         </dependency>
-    </dependencies>
+        <dependency>
+            <groupId>org.springframework.statemachine</groupId>
+            <artifactId>spring-statemachine-test</artifactId>
+            <version>${spring-statemachine.version}</version>
+            <scope>test</scope>
+        </dependency>
 
-    <repositories>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/groups/public</url>
-        </repository>
-    </repositories>
+    </dependencies>
 </project>
