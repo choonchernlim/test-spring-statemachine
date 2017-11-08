@@ -5,33 +5,41 @@ import org.springframework.messaging.Message
 import org.springframework.statemachine.StateMachine
 import org.springframework.statemachine.listener.StateMachineListenerAdapter
 import org.springframework.statemachine.state.State
+import org.springframework.statemachine.transition.Transition
 
 @Slf4j
 class StateMachineListener extends StateMachineListenerAdapter {
 
     @Override
-    void stateMachineStarted(final StateMachine stateMachine) {
-        log.debug("LOGGER: STATE MACHINE STARTED: [MACHINE ID: ${stateMachine.id}]")
-    }
-
-    @Override
-    void stateMachineStopped(final StateMachine stateMachine) {
-        log.debug("LOGGER: STATE MACHINE STOPPED: [MACHINE ID: ${stateMachine.id}]")
-    }
-
-    @Override
     void stateMachineError(final StateMachine stateMachine, final Exception exception) {
-        log.error("LOGGER: STATE MACHINE ERROR: [MACHINE ID: ${stateMachine.id}] [EXCEPTION: ${exception}]")
+        log.error("STATE MACHINE ERROR : " +
+                  "[MACHINE ID: ${stateMachine.id}]".padRight(30) +
+                  "[EXCEPTION: ${exception}]".padRight(30)
+        )
     }
 
     @Override
     void stateChanged(final State from, final State to) {
-        log.debug("LOGGER: STATE CHANGED: [FROM: ${from?.id}] [TO: ${to.id}]")
+        log.debug("STATE CHANGED      : " +
+                  "[FROM: ${from?.id}]".padRight(30) +
+                  "[TO: ${to.id}]".padRight(30)
+        )
+    }
+
+    @Override
+    void transition(final Transition transition) {
+        log.debug("TRANSITION         : " +
+                  "[FROM: ${transition.source?.id}]".padRight(30) +
+                  "[TO: ${transition.target?.id}]".padRight(30) +
+                  "[EVENT: ${transition.trigger?.event}]".padRight(30)
+        )
     }
 
     @Override
     void eventNotAccepted(final Message message) {
-        log.warn("LOGGER: EVENT NOT ACCEPTED: [MESSAGE: ${message}]")
+        log.warn("EVENT NOT ACCEPTED  : " +
+                 "[MESSAGE: ${message}]".padRight(30)
+        )
     }
 
 

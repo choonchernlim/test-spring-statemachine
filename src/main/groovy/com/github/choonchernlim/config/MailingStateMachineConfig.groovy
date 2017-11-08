@@ -1,7 +1,6 @@
 package com.github.choonchernlim.config
 
 import com.github.choonchernlim.statemachine.core.StateMachineListener
-import com.github.choonchernlim.statemachine.core.StateMachineMonitor
 import com.github.choonchernlim.statemachine.mailing.MailingMetadata
 import groovy.util.logging.Slf4j
 import org.springframework.context.annotation.Configuration
@@ -24,10 +23,7 @@ class MailingStateMachineConfig extends StateMachineConfigurerAdapter<MailingMet
                 withConfiguration().
                 autoStartup(true).
                 machineId(MailingMetadata.MACHINE_ID).
-                listener(new StateMachineListener()).
-                and().
-                withMonitoring().
-                monitor(new StateMachineMonitor())
+                listener(new StateMachineListener())
     }
 
     @Override
@@ -35,7 +31,8 @@ class MailingStateMachineConfig extends StateMachineConfigurerAdapter<MailingMet
         states.
                 withStates().
                 initial(MailingMetadata.State.WAITING).
-                states(EnumSet.allOf(MailingMetadata.State))
+                states(EnumSet.allOf(MailingMetadata.State)).
+                choice(MailingMetadata.State.SHOULD_SEND_MAIL_CHOICE)
     }
 
     @Override
@@ -44,7 +41,14 @@ class MailingStateMachineConfig extends StateMachineConfigurerAdapter<MailingMet
         transitions.
                 withExternal().
                 source(MailingMetadata.State.WAITING).
-                target(MailingMetadata.State.SENT_SUCCESSFULLY).
-                event(MailingMetadata.Event.SEND_MAIL)
+                target(MailingMetadata.State.SHOULD_SEND_MAIL_CHOICE).
+                event(MailingMetadata.Event.SEND_MAIL).
+                and().
+                withChoice().
+                source(MailingMetadata.State.SHOULD_SEND_MAIL_CHOICE).
+                first(MailingMetadata.State.SEND_SUCCESS,
+                      { ctx -> ctx.getMessageHeader(MailingMetadata.SendMailEvent.MAIL_ID) != null },
+                      { ctx -> log.info("Sending mail...") }).
+                last(MailingMetadata.State.SEND_FAILED)
     }
 }

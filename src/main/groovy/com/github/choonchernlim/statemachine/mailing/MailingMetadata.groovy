@@ -9,7 +9,9 @@ class MailingMetadata {
 
     enum State {
         WAITING,
-        SENT_SUCCESSFULLY
+        SEND_SUCCESS,
+        SEND_FAILED,
+        SHOULD_SEND_MAIL_CHOICE
     }
 
     static class SendMailEvent {

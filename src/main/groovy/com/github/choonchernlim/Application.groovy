@@ -22,18 +22,16 @@ class Application implements CommandLineRunner {
 
     @Override
     void run(final String... strings) {
-        stateMachine.sendEvent(
-                MessageBuilder.
-                        withPayload(MailingMetadata.Event.SEND_MAIL).
-                        setHeader(MailingMetadata.SendMailEvent.MAIL_ID, 1).
-                        build())
+//        stateMachine.sendEvent(
+//                MessageBuilder.
+//                        withPayload(MailingMetadata.Event.SEND_MAIL).
+//                        build())
 
         stateMachine.sendEvent(
                 MessageBuilder.
                         withPayload(MailingMetadata.Event.SEND_MAIL).
                         setHeader(MailingMetadata.SendMailEvent.MAIL_ID, 1).
                         build())
-
     }
 
     static void main(String[] args) {
