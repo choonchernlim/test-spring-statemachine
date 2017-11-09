@@ -11,36 +11,52 @@ import org.springframework.statemachine.transition.Transition
 class StateMachineListener extends StateMachineListenerAdapter {
 
     @Override
+    void stateMachineStarted(final StateMachine stateMachine) {
+        log.debug("STATE MACHINE STARTED : " +
+                  padRight("[MACHINE ID: ${stateMachine.id}]")
+        )
+    }
+
+    @Override
+    void stateMachineStopped(final StateMachine stateMachine) {
+        log.debug("STATE MACHINE STOPPED : " +
+                  padRight("[MACHINE ID: ${stateMachine.id}]")
+        )
+    }
+
+    @Override
     void stateMachineError(final StateMachine stateMachine, final Exception exception) {
-        log.error("STATE MACHINE ERROR : " +
-                  "[MACHINE ID: ${stateMachine.id}]".padRight(30) +
-                  "[EXCEPTION: ${exception}]".padRight(30)
+        log.error("STATE MACHINE ERROR   : " +
+                  padRight("[MACHINE ID: ${stateMachine.id}]") +
+                  padRight("[EXCEPTION: ${exception}]")
         )
     }
 
     @Override
     void stateChanged(final State from, final State to) {
-        log.debug("STATE CHANGED      : " +
-                  "[FROM: ${from?.id}]".padRight(30) +
-                  "[TO: ${to.id}]".padRight(30)
+        log.debug("STATE CHANGED         : " +
+                  padRight("[FROM: ${from?.id}]") +
+                  padRight("[TO: ${to.id}]")
         )
     }
 
     @Override
     void transition(final Transition transition) {
-        log.debug("TRANSITION         : " +
-                  "[FROM: ${transition.source?.id}]".padRight(30) +
-                  "[TO: ${transition.target?.id}]".padRight(30) +
-                  "[EVENT: ${transition.trigger?.event}]".padRight(30)
+        log.debug("TRANSITION            : " +
+                  padRight("[FROM: ${transition.source?.id}]") +
+                  padRight("[TO: ${transition.target?.id}]") +
+                  padRight("[EVENT: ${transition.trigger?.event}]")
         )
     }
 
     @Override
     void eventNotAccepted(final Message message) {
-        log.warn("EVENT NOT ACCEPTED  : " +
-                 "[MESSAGE: ${message}]".padRight(30)
+        log.warn("EVENT NOT ACCEPTED    : " +
+                 padRight("[MESSAGE: ${message}]")
         )
     }
 
-
+    private static String padRight(final String s) {
+        return s.padRight(50)
+    }
 }
