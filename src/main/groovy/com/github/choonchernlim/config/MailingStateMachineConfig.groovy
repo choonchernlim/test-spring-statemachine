@@ -1,22 +1,25 @@
 package com.github.choonchernlim.config
 
 import com.github.choonchernlim.statemachine.core.StateMachineListener
-import com.github.choonchernlim.statemachine.mailing.MailIdExistAction
-import com.github.choonchernlim.statemachine.mailing.MailIdExistGuard
-import com.github.choonchernlim.statemachine.mailing.MailingMetadata
+import com.github.choonchernlim.statemachine.mailing.*
+import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
 import org.springframework.statemachine.config.EnableStateMachineFactory
 import org.springframework.statemachine.config.StateMachineConfigurerAdapter
 import org.springframework.statemachine.config.builders.StateMachineConfigurationConfigurer
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer
 
-//@Slf4j
+/**
+ * Default state machine configuration where states and transitions are all defined here.
+ */
+@Profile('default')
+@Slf4j
 @Configuration
-@EnableStateMachineFactory(name = 'stateMachineFactory')
-//@SuppressWarnings(['GroovyUnusedDeclaration', 'GrMethodMayBeStatic'])
-class MailingStateMachineConfig extends StateMachineConfigurerAdapter<MailingMetadata.State, MailingMetadata.Event> {
+@EnableStateMachineFactory
+class MailingStateMachineConfig extends StateMachineConfigurerAdapter<String, String> {
 
     @Autowired
     MailIdExistGuard mailIdExistGuard
@@ -24,9 +27,12 @@ class MailingStateMachineConfig extends StateMachineConfigurerAdapter<MailingMet
     @Autowired
     MailIdExistAction mailIdExistAction
 
+    MailingStateMachineConfig() {
+        log.info('Activating MailingStateMachineConfig...')
+    }
+
     @Override
-    void configure(final StateMachineConfigurationConfigurer<MailingMetadata.State, MailingMetadata.Event> config)
-            throws Exception {
+    void configure(final StateMachineConfigurationConfigurer<String, String> config) throws Exception {
         config.
                 withConfiguration().
                 machineId(MailingMetadata.MACHINE_ID).
@@ -34,27 +40,25 @@ class MailingStateMachineConfig extends StateMachineConfigurerAdapter<MailingMet
     }
 
     @Override
-    void configure(StateMachineStateConfigurer<MailingMetadata.State, MailingMetadata.Event> states)
-            throws Exception {
+    void configure(StateMachineStateConfigurer<String, String> states) throws Exception {
         states.
                 withStates().
-                initial(MailingMetadata.State.WAITING).
-                states(EnumSet.allOf(MailingMetadata.State)).
-                choice(MailingMetadata.State.SHOULD_SEND_MAIL_CHOICE)
+                initial(MailingState.WAITING.name()).
+                states(MailingState.values().collect { it.name() }.toSet()).
+                choice(MailingState.SHOULD_SEND_MAIL_CHOICE.name())
     }
 
     @Override
-    void configure(StateMachineTransitionConfigurer<MailingMetadata.State, MailingMetadata.Event> transitions)
-            throws Exception {
+    void configure(StateMachineTransitionConfigurer<String, String> transitions) throws Exception {
         transitions.
                 withExternal().
-                source(MailingMetadata.State.WAITING).
-                target(MailingMetadata.State.SHOULD_SEND_MAIL_CHOICE).
-                event(MailingMetadata.Event.SEND_MAIL).
+                source(MailingState.WAITING.name()).
+                target(MailingState.SHOULD_SEND_MAIL_CHOICE.name()).
+                event(MailingEvent.SEND_MAIL.name()).
                 and().
                 withChoice().
-                source(MailingMetadata.State.SHOULD_SEND_MAIL_CHOICE).
-                first(MailingMetadata.State.SEND_SUCCESS, mailIdExistGuard, mailIdExistAction).
-                last(MailingMetadata.State.SEND_FAILED)
+                source(MailingState.SHOULD_SEND_MAIL_CHOICE.name()).
+                first(MailingState.SEND_SUCCESS.name(), mailIdExistGuard, mailIdExistAction).
+                last(MailingState.SEND_FAILED.name())
     }
 }

@@ -12,21 +12,24 @@ class StateMachineListener extends StateMachineListenerAdapter {
 
     @Override
     void stateMachineStarted(final StateMachine stateMachine) {
-        log.debug("STATE MACHINE STARTED : " +
+        log.debug(padRight("STATE MACHINE STARTED") +
+                  " : " +
                   padRight("[MACHINE ID: ${stateMachine.id}]")
         )
     }
 
     @Override
     void stateMachineStopped(final StateMachine stateMachine) {
-        log.debug("STATE MACHINE STOPPED : " +
+        log.debug(padRight("STATE MACHINE STOPPED") +
+                  " : " +
                   padRight("[MACHINE ID: ${stateMachine.id}]")
         )
     }
 
     @Override
     void stateMachineError(final StateMachine stateMachine, final Exception exception) {
-        log.error("STATE MACHINE ERROR   : " +
+        log.error(padRight("STATE MACHINE ERROR") +
+                  " : " +
                   padRight("[MACHINE ID: ${stateMachine.id}]") +
                   padRight("[EXCEPTION: ${exception}]")
         )
@@ -34,7 +37,8 @@ class StateMachineListener extends StateMachineListenerAdapter {
 
     @Override
     void stateChanged(final State from, final State to) {
-        log.debug("STATE CHANGED         : " +
+        log.debug(padRight("STATE CHANGED") +
+                  " : " +
                   padRight("[FROM: ${from?.id}]") +
                   padRight("[TO: ${to.id}]")
         )
@@ -42,7 +46,8 @@ class StateMachineListener extends StateMachineListenerAdapter {
 
     @Override
     void transition(final Transition transition) {
-        log.debug("TRANSITION            : " +
+        log.debug(padRight("TRANSITION") +
+                  " : " +
                   padRight("[FROM: ${transition.source?.id}]") +
                   padRight("[TO: ${transition.target?.id}]") +
                   padRight("[EVENT: ${transition.trigger?.event}]")
@@ -51,7 +56,8 @@ class StateMachineListener extends StateMachineListenerAdapter {
 
     @Override
     void eventNotAccepted(final Message message) {
-        log.warn("EVENT NOT ACCEPTED    : " +
+        log.warn(padRight("EVENT NOT ACCEPTED") +
+                 " : " +
                  padRight("[MESSAGE: ${message}]")
         )
     }
