@@ -1,4 +1,4 @@
-package com.github.choonchernlim.statemachine.core
+package com.github.choonchernlim.testspringstatemachine.statemachine.core
 
 import groovy.util.logging.Slf4j
 import org.springframework.messaging.Message

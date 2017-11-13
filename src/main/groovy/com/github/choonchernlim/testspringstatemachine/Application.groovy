@@ -1,7 +1,7 @@
-package com.github.choonchernlim
+package com.github.choonchernlim.testspringstatemachine
 
-import com.github.choonchernlim.statemachine.mailing.MailingService
-import com.github.choonchernlim.statemachine.mailing.MailingState
+import com.github.choonchernlim.testspringstatemachine.statemachine.mailing.MailingService
+import com.github.choonchernlim.testspringstatemachine.statemachine.mailing.MailingState
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
@@ -21,8 +21,8 @@ class Application implements CommandLineRunner {
 
     @Override
     void run(final String... strings) {
-        log.info("Accepted? " + mailingService.sendMail(MailingState.WAITING, 1))
-        log.info("Accepted? " + mailingService.sendMail(MailingState.SEND_SUCCESS, 1))
+        log.info("Accepted? " + mailingService.fireSendMailEvent(MailingState.WAITING, 1))
+        log.info("Accepted? " + mailingService.fireSendMailEvent(MailingState.SEND_SUCCESS, 1))
     }
 
     static void main(String[] args) {

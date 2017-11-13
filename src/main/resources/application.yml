@@ -2,7 +2,7 @@
 
 logging.level:
   root: WARN
-  com.github.choonchernlim: DEBUG
+  com.github.choonchernlim.testspringstatemachine: DEBUG
   org.springframework.statemachine: WARN
 
 spring:

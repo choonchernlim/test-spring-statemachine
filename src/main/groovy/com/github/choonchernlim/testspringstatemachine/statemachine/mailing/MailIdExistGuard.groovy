@@ -1,4 +1,4 @@
-package com.github.choonchernlim.statemachine.mailing
+package com.github.choonchernlim.testspringstatemachine.statemachine.mailing
 
 import org.springframework.statemachine.StateContext
 import org.springframework.statemachine.guard.Guard

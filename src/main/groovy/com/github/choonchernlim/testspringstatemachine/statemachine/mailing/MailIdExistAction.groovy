@@ -1,4 +1,4 @@
-package com.github.choonchernlim.statemachine.mailing
+package com.github.choonchernlim.testspringstatemachine.statemachine.mailing
 
 import groovy.util.logging.Slf4j
 import org.springframework.statemachine.StateContext

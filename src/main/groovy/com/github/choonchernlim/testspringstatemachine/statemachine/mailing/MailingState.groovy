@@ -1,4 +1,4 @@
-package com.github.choonchernlim.statemachine.mailing
+package com.github.choonchernlim.testspringstatemachine.statemachine.mailing
 
 import org.springframework.statemachine.StateMachine
 

@@ -1,7 +1,7 @@
-package com.github.choonchernlim.config
+package com.github.choonchernlim.testspringstatemachine.config
 
-import com.github.choonchernlim.statemachine.core.StateMachineListener
-import com.github.choonchernlim.statemachine.mailing.MailingMetadata
+import com.github.choonchernlim.testspringstatemachine.statemachine.core.StateMachineListener
+import com.github.choonchernlim.testspringstatemachine.statemachine.mailing.MailingMetadata
 import groovy.util.logging.Slf4j
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

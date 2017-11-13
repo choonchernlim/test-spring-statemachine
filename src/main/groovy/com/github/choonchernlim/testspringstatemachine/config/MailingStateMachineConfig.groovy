@@ -1,7 +1,7 @@
-package com.github.choonchernlim.config
+package com.github.choonchernlim.testspringstatemachine.config
 
-import com.github.choonchernlim.statemachine.core.StateMachineListener
-import com.github.choonchernlim.statemachine.mailing.*
+import com.github.choonchernlim.testspringstatemachine.statemachine.core.StateMachineListener
+import com.github.choonchernlim.testspringstatemachine.statemachine.mailing.*
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
@@ -14,6 +14,9 @@ import org.springframework.statemachine.config.builders.StateMachineTransitionCo
 
 /**
  * Default state machine configuration where states and transitions are all defined here.
+ *
+ * Instead of using Enums for states and events, String is used to allow services to use UML-based state machine
+ * factory interchangeably.
  */
 @Profile('default')
 @Slf4j
