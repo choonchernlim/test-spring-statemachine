@@ -1,16 +1,11 @@
 package com.github.choonchernlim.testspringstatemachine.statemachine.mailing
-
-import org.springframework.statemachine.StateMachine
-
 /**
  * All state machine events.
  */
 enum MailingEvent {
     SEND_MAIL
 
-    static void validate(final StateMachine<String, String> stateMachine) {
-        assert stateMachine.transitions.findAll { it.trigger }.collect { it.trigger.event }.toSet() == values().
-                collect { it.name() }.
-                toSet()
+    static Set<String> getNames() {
+        return values().collect { it.name() }.toSet()
     }
 }
