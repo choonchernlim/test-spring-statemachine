@@ -3,6 +3,7 @@ package com.github.choonchernlim.testspringstatemachine.statemachine.mailing
  * All state machine states.
  */
 enum MailingState {
+    DONE,
     WAITING,
     SEND_SUCCESS,
     SEND_FAILED,

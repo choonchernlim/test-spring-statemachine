@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_Yqk2EMYcEeeHvI_eR1ClcQ" name="sts">
-  <packagedElement xmi:type="uml:StateMachine" xmi:id="_YspSoMYcEeeHvI_eR1ClcQ" name="Mailing" visibility="public">
-    <region xmi:type="uml:Region" xmi:id="_YuYYAMYcEeeHvI_eR1ClcQ" name="Main">
-      <transition xmi:type="uml:Transition" xmi:id="_K2SKUMYdEeeHvI_eR1ClcQ" source="_Af5lUMYdEeeHvI_eR1ClcQ" target="_7zmOQMYcEeeHvI_eR1ClcQ">
-        <trigger xmi:type="uml:Trigger" xmi:id="_FONxwMYhEeeHvI_eR1ClcQ" event="_npOp4MYgEeeHvI_eR1ClcQ"/>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_6aKUQByOEeiBZISNMxGulQ" name="mailing">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_6fp4QByOEeiBZISNMxGulQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_6awKIByOEeiBZISNMxGulQ" name="MAILING_STATE_MACHINE" visibility="package">
+    <region xmi:type="uml:Region" xmi:id="_6a6iMByOEeiBZISNMxGulQ" name="Region1">
+      <transition xmi:type="uml:Transition" xmi:id="_fgtwIByPEeiBZISNMxGulQ" source="_SvLXUByPEeiBZISNMxGulQ" target="_d8x4MByPEeiBZISNMxGulQ"/>
+      <transition xmi:type="uml:Transition" xmi:id="_gnMQAByPEeiBZISNMxGulQ" source="_UHM6MByPEeiBZISNMxGulQ" target="_d8x4MByPEeiBZISNMxGulQ"/>
+      <transition xmi:type="uml:Transition" xmi:id="_v5RS8ByPEeiBZISNMxGulQ" source="_-6Li0ByOEeiBZISNMxGulQ" target="_MbdWgByPEeiBZISNMxGulQ"/>
+      <transition xmi:type="uml:Transition" xmi:id="_2Y628ByPEeiBZISNMxGulQ" name="WAITING_to_SHOULD_SEND_MAIL_CHOICE" source="_MbdWgByPEeiBZISNMxGulQ" target="_knJecByPEeiBZISNMxGulQ">
+        <trigger xmi:type="uml:Trigger" xmi:id="_1SiWUBySEeiBZISNMxGulQ" event="_OFqHIBySEeiBZISNMxGulQ"/>
       </transition>
-      <transition xmi:type="uml:Transition" xmi:id="_gM-bEMYdEeeHvI_eR1ClcQ" guard="_TBhIkMYsEeeHvI_eR1ClcQ" source="_7zmOQMYcEeeHvI_eR1ClcQ" target="_STdGgMYdEeeHvI_eR1ClcQ">
-        <ownedRule xmi:type="uml:Constraint" xmi:id="_TBhIkMYsEeeHvI_eR1ClcQ">
-          <specification xmi:type="uml:OpaqueExpression" xmi:id="_jDX7QMYvEeeHvI_eR1ClcQ">
+      <transition xmi:type="uml:Transition" xmi:id="_4c79IByPEeiBZISNMxGulQ" name="SHOULD_SEND_MAIL_CHOICE_to_SEND_SUCCESS" guard="_Sh7IABybEeiBZISNMxGulQ" source="_knJecByPEeiBZISNMxGulQ" target="_SvLXUByPEeiBZISNMxGulQ">
+        <ownedRule xmi:type="uml:Constraint" xmi:id="_Sh7IABybEeiBZISNMxGulQ" name="MailIdExistGuard">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="_Sh7IARybEeiBZISNMxGulQ">
             <language>bean</language>
             <body>mailIdExistGuard</body>
           </specification>
         </ownedRule>
-        <effect xmi:type="uml:OpaqueBehavior" xmi:id="_Ksk7QMZKEeeHvI_eR1ClcQ" name="mailIdExistAction">
+        <effect xmi:type="uml:FunctionBehavior" xmi:id="_Qyhj8By8EeiBZISNMxGulQ" name="MailIdExistAction">
           <language>bean</language>
           <body>mailIdExistAction</body>
         </effect>
       </transition>
-      <transition xmi:type="uml:Transition" xmi:id="_q4x2cMYdEeeHvI_eR1ClcQ" source="_7zmOQMYcEeeHvI_eR1ClcQ" target="_W05RYMYdEeeHvI_eR1ClcQ"/>
-      <transition xmi:type="uml:Transition" xmi:id="_4752IMYhEeeHvI_eR1ClcQ" source="_xcIrMMYcEeeHvI_eR1ClcQ" target="_Af5lUMYdEeeHvI_eR1ClcQ"/>
-      <subvertex xmi:type="uml:Pseudostate" xmi:id="_xcIrMMYcEeeHvI_eR1ClcQ"/>
-      <subvertex xmi:type="uml:Pseudostate" xmi:id="_7zmOQMYcEeeHvI_eR1ClcQ" name="SHOULD_SEND_MAIL_CHOICE" kind="choice"/>
-      <subvertex xmi:type="uml:State" xmi:id="_Af5lUMYdEeeHvI_eR1ClcQ" name="WAITING"/>
-      <subvertex xmi:type="uml:State" xmi:id="_STdGgMYdEeeHvI_eR1ClcQ" name="SEND_SUCCESS"/>
-      <subvertex xmi:type="uml:State" xmi:id="_W05RYMYdEeeHvI_eR1ClcQ" name="SEND_FAILED"/>
+      <transition xmi:type="uml:Transition" xmi:id="_6XDgcByPEeiBZISNMxGulQ" source="_knJecByPEeiBZISNMxGulQ" target="_UHM6MByPEeiBZISNMxGulQ"/>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_-6Li0ByOEeiBZISNMxGulQ" name="INITIAL"/>
+      <subvertex xmi:type="uml:State" xmi:id="_MbdWgByPEeiBZISNMxGulQ" name="WAITING"/>
+      <subvertex xmi:type="uml:State" xmi:id="_SvLXUByPEeiBZISNMxGulQ" name="SEND_SUCCESS"/>
+      <subvertex xmi:type="uml:State" xmi:id="_UHM6MByPEeiBZISNMxGulQ" name="SEND_FAILED"/>
+      <subvertex xmi:type="uml:FinalState" xmi:id="_d8x4MByPEeiBZISNMxGulQ" name="DONE"/>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_knJecByPEeiBZISNMxGulQ" name="SHOULD_SEND_MAIL_CHOICE" kind="choice"/>
     </region>
   </packagedElement>
-  <packagedElement xmi:type="uml:Signal" xmi:id="_hVFLQMYgEeeHvI_eR1ClcQ" name="SEND_MAIL"/>
-  <packagedElement xmi:type="uml:SignalEvent" xmi:id="_npOp4MYgEeeHvI_eR1ClcQ" name="SignalEventSEND_MAIL" signal="_hVFLQMYgEeeHvI_eR1ClcQ"/>
+  <packagedElement xmi:type="uml:SignalEvent" xmi:id="_OFqHIBySEeiBZISNMxGulQ" name="SEND_MAIL_SignalEvent" signal="_YxbGQBySEeiBZISNMxGulQ"/>
+  <packagedElement xmi:type="uml:Signal" xmi:id="_YxbGQBySEeiBZISNMxGulQ" name="SEND_MAIL"/>
 </uml:Model>
